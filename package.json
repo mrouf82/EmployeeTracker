@@ -1,7 +1,6 @@
 {
   "name": "employee-tracker",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index"
@@ -11,7 +10,18 @@
   "dependencies": {
     "asciiart-logo": "^0.2.6",
     "console.table": "^0.10.0",
-    "inquirer": "^7.0.0",
-    "mysql": "^2.17.1"
-  }
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrouf82/EmployeeTracker.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/mrouf82/EmployeeTracker/issues"
+  },
+  "homepage": "https://github.com/mrouf82/EmployeeTracker#readme",
+  "description": ""
 }
