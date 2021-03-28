@@ -15,7 +15,7 @@ CREATE TABLE role (
     salary DECIMAL(9,2),
     department_id INT NOT NULL,
     PRIMARY KEY(role_id),
-    
+    FOREIGN KEY(department_id) REFERENCES department (department_id)
 );
 
 CREATE TABLE employee (
@@ -23,7 +23,13 @@ CREATE TABLE employee (
     first_name VARCHAR(30),
     last_name VARCHAR(30),
     role_id INT NOT NULL,
-    manager_id INT NULL,
+    manager_id INT,
     PRIMARY KEY(emp_id),
-   
+    FOREIGN KEY(role_id) REFERENCES role (role_id),
+    FOREIGN KEY(manager_id) REFERENCES employee (emp_id)
 );
+
+INSERT INTO department(department_name) VALUE("HR"),("SALES"), ("BUSINESS DEV");
+
+INSERT INTO role(role, salary, department_id) VALUE("HR Manager", 80000.00, 1), ("HR Specialist", 70000.00, 1), ("Sales Manager", 80000.00, 2),
+("Sales Specialist", 70000.00, 2), ("BizDev Manager", 80000.00, 3), ("BizDev Specialist", 70000.00, 3); 

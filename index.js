@@ -1,23 +1,13 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 const consoletable = require("console.table");
-
-const connection = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-  // Your username
-  user: "root",
-  // Your password
-  password: "root1",
-  database: "employees_db",
-});
+const connection = require("./db/connection");
 
 connection.connect((error) => {
   if (error) throw error;
   start();
 });
 
-// Display logo text, load main prompts
 function start() {
   inquirer
     .prompt({
@@ -36,7 +26,10 @@ function start() {
       ],
     })
     .then((answer) => {
-      switch (answer.action) {
+      console.log("===============");
+      console.log(answer);
+      console.log("=====================");
+      switch (answer.choice) {
         case "View All Employees":
           return viewEmployees();
 
@@ -100,21 +93,26 @@ function addEmployee() {
       {
         type: "input",
         name: "managerId",
-        message: "Who is the employee's manager?",
+        message: "What is the employee's manager ID?",
       },
     ])
 
     .then((response) => {
-      connection.query("INSERT INTO employee SET ?", {
+      const data = {
         first_name: response.first_name,
         last_name: response.last_name,
         role_id: response.roleId,
-        manager_id: response.managerId,
+        // manager_id: response.managerId,
+      };
+      if (response.managerId) {
+        data.manager_id = response.managerId;
+      }
+      connection.query("INSERT INTO employee SET ?", data, (err, res) => {
+        if (err) throw err;
+        console.log(res);
+        console.log(`Added new employee to the database`);
+        start();
       });
-      console.log(
-        `Added ${employee.first_name} ${employee.last_name} to the database`
-      );
-      start();
     });
 }
 function addRole() {
